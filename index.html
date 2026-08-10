@@ -10,12 +10,16 @@
     <div class="app-shell">
       <section class="screen active centered-screen" data-screen="intro">
         <p data-i18n="intro.text">Introduction Here</p>
-        <button class="btn" id="intro-continue" data-i18n="intro.continue">Continue</button>
+        <button class="btn" id="intro-continue" data-i18n="intro.continue">
+          Continue
+        </button>
       </section>
 
       <section class="screen centered-screen" data-screen="lock">
         <p>Login screen</p>
-        <button class="btn" id="unlock-btn" data-i18n="lock.enter">Enter</button>
+        <button class="btn" id="unlock-btn" data-i18n="lock.enter">
+          Enter
+        </button>
       </section>
 
       <section class="screen centered-screen" data-screen="prompt">
@@ -32,7 +36,10 @@
             <span class="dot yellow"></span>
             <span class="dot green"></span>
           </div>
-          <span>archive</span>
+          <span data-i18n="os.label">archive</span>
+          <button id="notify-trigger" class="status-action">
+            Simulate arrival
+          </button>
         </div>
 
         <div class="app-frame">
@@ -51,6 +58,10 @@
             </div>
           </div>
         </div>
+        <div class="notif-banner" id="notif-banner">
+  <div class="notif-from" id="notif-from"></div>
+  <div class="notif-snippet" id="notif-snippet"></div>
+</div>
 
         <div class="dock">
           <button class="active" data-app="home">Home</button>

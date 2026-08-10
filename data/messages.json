@@ -3,26 +3,29 @@
     "id": "n1",
     "from": "R.",
     "snippet": "A voice note just came in.",
-    "transcript": "I recorded this from the balcony — you can hear the street below.",
+    "transcript": "I recorded this from the balcony, you can hear the street below.",
     "prompt": "What does this sound remind you of?",
-    "responseType": "voice"
+    "responseType": "voice",
+    "arrived": true
   },
   {
     "id": "n2",
     "from": "S.",
     "snippet": "Shared a photo with a note.",
-    "transcript": "Found this in the street while walking around",
+    "transcript": "Found this while going through boxes.",
     "prompt": "Does this feel familiar to you?",
-    "responseType": "text"
+    "responseType": "text",
+    "arrived": true
   },
   {
     "id": "n3",
     "from": "M.",
     "snippet": "Left a short recording.",
-    "transcript": "Tell me what you hear underneath it.",
+    "transcript": "This one's hard to explain. What do you hear underneath it?",
     "prompt": "What do you notice first?",
     "responseType": "choice",
-    "choices": ["x", "y", "z"]
+    "choices": ["Something calming", "Something unsettling", "Not sure yet"],
+    "arrived": true
   },
   {
     "id": "n4",
@@ -30,6 +33,26 @@
     "snippet": "Sent an old photo.",
     "transcript": "This was taken somewhere",
     "prompt": "Do you have a photo that feels similar?",
-    "responseType": "photo"
+    "responseType": "photo",
+    "arrived": true
+  },
+  {
+    "id": "n5",
+    "from": "K.",
+    "snippet": "Just sent something new.",
+    "transcript": "Actually, here's something I haven't shared before.",
+    "prompt": "What's your first reaction?",
+    "responseType": "text",
+    "arrived": false
+  },
+  {
+    "id": "n6",
+    "from": "A.",
+    "snippet": "Another one just came through.",
+    "transcript": "I keep going back to this one. Not sure why.",
+    "prompt": "What comes up?",
+    "responseType": "choice",
+    "choices": ["x", "y", "z"],
+    "arrived": false
   }
 ]

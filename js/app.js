@@ -50,13 +50,43 @@ async function loadGallery(){
 }
 
 let messages = [];
+let pendingQueue = [];
 let selectedMessageId = null;
 
 async function loadMessages(){
   const response = await fetch('data/messages.json');
-  messages = await response.json();
+  const all = await response.json();
+  messages = all.filter(m => m.arrived);
+  pendingQueue = all.filter(m => !m.arrived);
   renderMessageList();
 }
+
+function triggerNotification(){
+  if (pendingQueue.length === 0) return;
+  const next = pendingQueue.shift();
+  messages.push(next);
+  renderMessageList();
+  showBanner(next);
+}
+function showBanner(message){
+  document.getElementById('notif-from').textContent = message.from;
+  document.getElementById('notif-snippet').textContent = message.snippet;
+
+  const banner = document.getElementById('notif-banner');
+  banner.classList.add('show');
+
+  banner.onclick = () => {
+    banner.classList.remove('show');
+    showApp('messages');
+    selectedMessageId = message.id;
+    renderMessageList();
+    renderMessageDetail();
+  };
+
+  setTimeout(() => banner.classList.remove('show'), 4000);
+}
+
+document.getElementById('notify-trigger').addEventListener('click', triggerNotification);
 
 function renderMessageList(){
   const list = document.getElementById('message-list');
