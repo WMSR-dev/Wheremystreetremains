@@ -1,0 +1,35 @@
+[
+  {
+    "id": "n1",
+    "from": "R.",
+    "snippet": "A voice note just came in.",
+    "transcript": "I recorded this from the balcony — you can hear the street below.",
+    "prompt": "What does this sound remind you of?",
+    "responseType": "voice"
+  },
+  {
+    "id": "n2",
+    "from": "S.",
+    "snippet": "Shared a photo with a note.",
+    "transcript": "Found this in the street while walking around",
+    "prompt": "Does this feel familiar to you?",
+    "responseType": "text"
+  },
+  {
+    "id": "n3",
+    "from": "M.",
+    "snippet": "Left a short recording.",
+    "transcript": "Tell me what you hear underneath it.",
+    "prompt": "What do you notice first?",
+    "responseType": "choice",
+    "choices": ["x", "y", "z"]
+  },
+  {
+    "id": "n4",
+    "from": "T.",
+    "snippet": "Sent an old photo.",
+    "transcript": "This was taken somewhere",
+    "prompt": "Do you have a photo that feels similar?",
+    "responseType": "photo"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "intro": {
+    "text": "Introduction Introduction Introduction Introduction Introduction Introduction Introduction ",
+    "continue": "Continue"
+  },
+  "lock": {
+    "enter": "Enter"
+  },
+  "prompt": {
+    "heading": "How does one remember a city?",
+    "continue": "Continue"
+  },
+  "os": {
+    "label": "archive"
+  }
+}
