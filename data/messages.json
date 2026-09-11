@@ -32,6 +32,23 @@
     "tags": ["useful for us to tag?"],
     "time": "21:25",
     "cleared": true
+  },
+  {
+    "id": "joud_1",
+    "personId": "joud",
+    "sourceFile": "link to og recording",
+    "arrived": false,
+    "delay": 70,
+    "date": null,
+    "image": "assets/imgs/joud/1.jpg",
+    "audio": "assets/audio/joud/1.m4a",
+    "transcript": {
+      "en": "Hi, I'm Joud, I'm 20. I took this photo before the war, when I had an art studio. I'm a painter and I love to draw. And I had this studio at home. I'd draw all the drawings I love in it, I have really lovely memories in it. I painted a lot of pieces in it. But now the paintings and the studio are gone with the war, sadly. And this is a drawing that means a lot to me and I love a lot. But I'm still drawing until now, and little by little I'm trying to get used to it again."
+    },
+    "place": { "name": "home", "area": "Gaza" },
+    "tags": ["useful for us to tag?"],
+    "time": "21:40",
+    "cleared": true
   }
 
 
