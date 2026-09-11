@@ -1,0 +1,46 @@
+[
+  {
+    "id": "asem",
+    "name": {
+      "en": "Asem Al Jerjawi"
+    },
+    "avatar": "#",
+    "bio": {
+      "en": "Palestinian journalist from Gaza...."
+    },
+    "cleared": true
+  },
+  {
+    "id": "maysa",
+    "name": {
+      "en": "Maysa"
+    },
+    "avatar": "#",
+    "bio": {
+      "en": "Born in Gaza, spent most of her life abroad, came back after fifteen years."
+    },
+    "cleared": true
+  },
+  {
+    "id": "aya",
+    "name": {
+      "en": "Aya Abu Jahl"
+    },
+    "avatar": "https://api.dicebear.com/10.x/glass/svg?seed=aya",
+    "bio": {
+      "en": "...."
+    },
+    "cleared": true
+  } ,
+  {
+    "id": "nour_hayek",
+    "name": {
+      "en": "Nour Hayek"
+    },
+    "avatar": "https://api.dicebear.com/10.x/glass/svg?seed=nourh",
+    "bio": {
+      "en": "There will be a bio about nour here"
+    },
+    "cleared": true
+  }
+]

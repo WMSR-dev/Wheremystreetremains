@@ -1,58 +1,38 @@
 [
   {
-    "id": "n1",
-    "from": "R.",
-    "snippet": "A voice note just came in.",
-    "transcript": "I recorded this from the balcony, you can hear the street below.",
-    "prompt": "What does this sound remind you of?",
-    "responseType": "voice",
-    "arrived": true
+    "id": "nour_hayek_1",
+    "personId": "nour_hayek",
+    "sourceFile": "link to og recording",
+    "arrived": false,
+    "delay": 3,
+    "date": null,
+    "image": "assets/imgs/nour_hayek/1.jpg",
+    "audio": "assets/audio/nour_hayek/1.mp3",
+    "transcript": {
+      "en": "I'm Nour Al-Hayek. This is the view from my room back then. It might look simple to people, but for me it was more precious than anything. Every time I opened the window, a strange sense of calm would come in with the breeze, and a safety I couldn't find anywhere else. Every morning, the moment I woke up and looked out the window, I'd feel like life had come back to me all over again. I'd leave the whole world behind, my eyes staying fixed on the trees moving with the wind. And the smell of the earth after rain would enter my heart before it entered the room. Whenever I was upset or felt under pressure, I'd escape to this view. But sadly, today all of this dream has turned to dust and rubble. The lovely memories that lived in this place are gone, and with them went a part of the peace of mind that used to soothe me in the hard days. But the memory is still inside me, and there's no destruction in the world that could erase its trace from my heart."
+    },
+    "place": { "name": "home", "area": "Gaza" },
+    "tags": ["useful for us to tag?"],
+    "time": "21:14",
+    "cleared": true
   },
   {
-    "id": "n2",
-    "from": "S.",
-    "snippet": "Shared a photo with a note.",
-    "transcript": "Found this while going through boxes.",
-    "prompt": "Does this feel familiar to you?",
-    "responseType": "text",
-    "arrived": true
-  },
-  {
-    "id": "n3",
-    "from": "M.",
-    "snippet": "Left a short recording.",
-    "transcript": "This one's hard to explain. What do you hear underneath it?",
-    "prompt": "What do you notice first?",
-    "responseType": "choice",
-    "choices": ["Something calming", "Something unsettling", "Not sure yet"],
-    "arrived": true
-  },
-  {
-    "id": "n4",
-    "from": "T.",
-    "snippet": "Sent an old photo.",
-    "transcript": "This was taken somewhere",
-    "prompt": "Do you have a photo that feels similar?",
-    "responseType": "photo",
-    "arrived": true
-  },
-  {
-    "id": "n5",
-    "from": "K.",
-    "snippet": "Just sent something new.",
-    "transcript": "Actually, here's something I haven't shared before.",
-    "prompt": "What's your first reaction?",
-    "responseType": "text",
-    "arrived": false
-  },
-  {
-    "id": "n6",
-    "from": "A.",
-    "snippet": "Another one just came through.",
-    "transcript": "I keep going back to this one. Not sure why.",
-    "prompt": "What comes up?",
-    "responseType": "choice",
-    "choices": ["x", "y", "z"],
-    "arrived": false
+    "id": "nour_hayek_2",
+    "personId": "nour_hayek",
+    "sourceFile": "link to og recording",
+    "arrived": false,
+    "delay": 65,
+    "date": null,
+    "image": "assets/imgs/nour_hayek/3.jpg",
+    "audio": "assets/audio/nour_hayek/3.m4a",
+    "transcript": {
+      "en": "There was a small supermarket called Watani. Close to my school. To people maybe an ordinary place, but to me a big place full of memories. Almost every day I'd pass by it after school. I'd buy simple things but I'd feel they were lovelier than anything else. I'd always smile just walking into it after a long day at school. Now I just look at the photos. I remember the days of childhood and the laughter with my friends after school. This place was part of my routine, part of my small memories that grew up with me. Today it might have changed or even disappeared. But the memory stayed carved in my heart, reminding me that the simplest places can be dearer than a thousand big ones."
+    },
+    "place": { "name": "home", "area": "Gaza" },
+    "tags": ["useful for us to tag?"],
+    "time": "21:25",
+    "cleared": true
   }
+
+
 ]

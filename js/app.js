@@ -1,180 +1,268 @@
-const state = { screen: 'intro' };
-
-function showScreen(name){
-  document.querySelectorAll('.screen').forEach(el =>
-    el.classList.toggle('active', el.dataset.screen === name)
-  );
-  state.screen = name;
-}
-
-console.log('app.js loaded, current screen:', state.screen);
-
-document.getElementById('intro-continue').addEventListener('click', () => showScreen('lock'));
-document.getElementById('unlock-btn').addEventListener('click', () => showScreen('prompt'));
-document.getElementById('prompt-continue').addEventListener('click', () => showScreen('os'));
+// app switching 
 
 function showApp(name){
-  document.querySelectorAll('.app').forEach(el =>
-    el.classList.toggle('active', el.dataset.app === name)
-  );
-  document.querySelectorAll('.dock button').forEach(btn =>
-    btn.classList.toggle('active', btn.dataset.app === name)
-  );
-  state.app = name;
+  document.querySelectorAll('.app').forEach(el => {
+    el.classList.toggle('active', el.dataset.app === name);
+  });
+  document.querySelectorAll('.dock button[data-app]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.app === name);
+  });
 }
-
-document.querySelectorAll('.dock button').forEach(btn => {
+document.querySelectorAll('.dock button[data-app]').forEach(btn => {
   btn.addEventListener('click', () => showApp(btn.dataset.app));
 });
 
-async function loadContent(){
-  const response = await fetch('content/en.json');
-  const content = await response.json();
+//language
+const LANG = 'en';
+function t(field){
+  if (!field) return '';
+  return field[LANG] ?? field.en ?? '';
+}
 
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    const value = key.split('.').reduce((obj, part) => obj?.[part], content);
-    if (value) el.textContent = value;
+
+
+//data
+let people = [];          // everyone who exists in the archive
+let messages = [];        // messages that have "arrived"
+let pendingQueue = [];    // messages waiting to arrive
+let openThreadId = null;  // which person's thread is open
+ 
+async function loadData(){
+  const [peopleRes, messagesRes] = await Promise.all([
+    fetch('data/people.json'),
+    fetch('data/messages.json')
+  ]);
+  people = await peopleRes.json();
+  const all = await messagesRes.json();
+  messages = all.filter(m => m.arrived);
+  pendingQueue = all.filter(m => !m.arrived);
+  renderThreadList();
+  startSequence();
+}
+
+
+function getPerson(id){ return people.find(p => p.id === id); }
+function messagesFor(personId){ return messages.filter(m => m.personId === personId); }
+
+
+// appearing in the list only when a msg is received // diff between new msg for an introduced character and a new character
+
+function knownPeople(){
+  return people.filter(p => messagesFor(p.id).length > 0);
+}
+
+//thread list
+
+function renderThreadList(){
+  const list = document.getElementById('message-list');
+  const known = knownPeople();
+ 
+  if (known.length === 0){
+    list.innerHTML = `<p class="pane-placeholder">No messages yet.</p>`;
+    return;
+  }
+ 
+  list.innerHTML = known.map(person => {
+    const thread = messagesFor(person.id);
+    const latest = thread[thread.length - 1];
+    const count = thread.length;
+    return `
+      <div class="message-row" data-person="${person.id}">
+        <img class="message-row-thumb" src="${person.avatar}" alt="">
+        <div class="message-row-text">
+          <div class="message-row-from">
+            ${t(person.name)}
+            ${count > 1 ? `<span class="thread-count">${count}</span>` : ''}
+          </div>
+          <div class="message-row-snippet">${t(latest.transcript)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+ 
+document.getElementById('message-list').addEventListener('click', (e) => {
+  const row = e.target.closest('.message-row');
+  if (!row) return;
+  openThread(row.dataset.person);
+});
+
+//single contact msg view
+function openThread(personId){
+  openThreadId = personId;
+  renderThread();
+  document.getElementById('message-detail').classList.add('show');
+}
+ 
+function renderThread(){
+  const person = getPerson(openThreadId);
+  const detail = document.getElementById('message-detail');
+  if (!person){ detail.innerHTML = ''; return; }
+
+  const bubbles = messagesFor(person.id).map(m => `
+    <div class="bubble" data-id="${m.id}">
+      <img class="bubble-photo" src="${m.image}" alt="">
+
+      <div class="voice-note">
+        <button class="vn-play" data-audio="${m.id}" aria-label="Play voice note">
+          <span class="vn-icon">&#9654;</span>
+        </button>
+        <div class="vn-track">
+          <div class="vn-progress"></div>
+        </div>
+        <span class="vn-time">--:--</span>
+        <audio preload="metadata" src="${m.audio}"></audio>
+      </div>
+
+      <button class="transcript-toggle" data-toggle="${m.id}">transcript</button>
+      <p class="bubble-transcript" hidden>${t(m.transcript)}</p>
+
+      <span class="bubble-meta">${m.time || ''}</span>
+    </div>
+  `).join('');
+
+    detail.innerHTML = `
+    <div class="thread-topbar">
+      <button class="detail-close" id="detail-close" aria-label="Back">&#8249;</button>
+      <img class="thread-avatar" src="${person.avatar}" alt="">
+      <div class="thread-titles">
+        <div class="thread-name">${t(person.name)}</div>
+        <div class="thread-bio">${t(person.bio)}</div>
+      </div>
+    </div>
+    <div class="thread-body">${bubbles}</div>
+  `;
+
+   document.getElementById('detail-close').addEventListener('click', () => {
+    stopAllAudio();
+    detail.classList.remove('show');
+    openThreadId = null;
+  });
+
+  wireVoiceNotes(detail);
+  wireTranscriptToggles(detail);
+
+  // land at the newest message, like opening a real thread
+  const body = detail.querySelector('.thread-body');
+  body.scrollTop = body.scrollHeight;
+}
+
+// vns
+
+function stopAllAudio(){
+  document.querySelectorAll('.voice-note audio').forEach(a => { a.pause(); });
+  document.querySelectorAll('.vn-icon').forEach(i => { i.innerHTML = '&#9654;'; });
+}
+
+function formatTime(seconds){
+  if (!isFinite(seconds)) return '--:--';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+function wireVoiceNotes(scope){
+  scope.querySelectorAll('.voice-note').forEach(vn => {
+    const audio = vn.querySelector('audio');
+    const btn = vn.querySelector('.vn-play');
+    const icon = vn.querySelector('.vn-icon');
+    const progress = vn.querySelector('.vn-progress');
+    const timeLabel = vn.querySelector('.vn-time');
+
+    // duration isn't known until metadata loads, hence preload="metadata"
+    audio.addEventListener('loadedmetadata', () => {
+      timeLabel.textContent = formatTime(audio.duration);
+    });
+
+    btn.addEventListener('click', () => {
+      const wasPlaying = !audio.paused;
+      stopAllAudio();               // only one voice note at a time
+      if (wasPlaying) return;       // that click was a pause
+      audio.play();
+      icon.innerHTML = '&#10074;&#10074;';
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${pct}%`;
+      timeLabel.textContent = formatTime(audio.duration - audio.currentTime);
+    });
+
+    audio.addEventListener('ended', () => {
+      icon.innerHTML = '&#9654;';
+      progress.style.width = '0%';
+      timeLabel.textContent = formatTime(audio.duration);
+    });
+
+    // scrub by tapping the track
+    vn.querySelector('.vn-track').addEventListener('click', (e) => {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = ratio * audio.duration;
+    });
   });
 }
 
-
-async function loadGallery(){
-  const response = await fetch('data/archive.json');
-  const items = await response.json();
-
-  const grid = document.getElementById('gallery-grid');
-  grid.innerHTML = items.map(item => `
-    <div class="tile" style="background:${item.color}"></div>
-  `).join('');
+//transcript toggle
+function wireTranscriptToggles(scope){
+  scope.querySelectorAll('.transcript-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = btn.nextElementSibling;
+      const showing = !p.hidden;
+      p.hidden = showing;
+      btn.textContent = showing ? 'transcript' : 'hide transcript';
+      btn.classList.toggle('open', !showing);
+    });
+  });
 }
 
-let messages = [];
-let pendingQueue = [];
-let selectedMessageId = null;
+//arrival + delay (currently fixed delays we need to develop this later with more complex triggers)
 
-async function loadMessages(){
-  const response = await fetch('data/messages.json');
-  const all = await response.json();
-  messages = all.filter(m => m.arrived);
-  pendingQueue = all.filter(m => !m.arrived);
-  renderMessageList();
+function startSequence(){
+  pendingQueue.forEach(message => {
+    setTimeout(() => deliver(message), (message.delay || 0) * 1000);
+  });
 }
-
-function triggerNotification(){
-  if (pendingQueue.length === 0) return;
-  const next = pendingQueue.shift();
+ 
+function deliver(next){
+  if (next.arrived) return;
+  next.arrived = true;
+ 
+  const person = getPerson(next.personId);
+  // did we already know this person before this message landed?
+  const isNewPerson = messagesFor(person.id).length === 0;
+ 
   messages.push(next);
-  renderMessageList();
-  showBanner(next);
+  renderThreadList();
+  if (openThreadId === person.id) renderThread();
+ 
+  showBanner(next, person, isNewPerson);
 }
-function showBanner(message){
-  document.getElementById('notif-from').textContent = message.from;
-  document.getElementById('notif-snippet').textContent = message.snippet;
-
+ 
+function showBanner(message, person, isNewPerson){
   const banner = document.getElementById('notif-banner');
+  document.getElementById('notif-thumb').style.backgroundImage = `url(${message.image})`;
+  document.getElementById('notif-from').textContent =
+    isNewPerson ? `${t(person.name)} — new contact` : t(person.name);
+  document.getElementById('notif-snippet').textContent = t(message.transcript);
+ 
   banner.classList.add('show');
-
   banner.onclick = () => {
     banner.classList.remove('show');
     showApp('messages');
-    selectedMessageId = message.id;
-    renderMessageList();
-    renderMessageDetail();
+    openThread(person.id);
   };
-
   setTimeout(() => banner.classList.remove('show'), 4000);
 }
 
-document.getElementById('notify-trigger').addEventListener('click', triggerNotification);
-
-function renderMessageList(){
-  const list = document.getElementById('message-list');
-  list.innerHTML = messages.map(m => `
-    <div class="message-row ${m.id === selectedMessageId ? 'selected' : ''}" data-id="${m.id}">
-      <div class="from">${m.from}</div>
-      <div>${m.snippet}</div>
-    </div>
-  `).join('');
-}
-
-function renderMessageDetail(){
-  const message = messages.find(m => m.id === selectedMessageId);
-  const detail = document.getElementById('message-detail');
-
-  if (!message) {
-    detail.innerHTML = '<p class="pane-placeholder">Select a message to read it</p>';
-    return;
-  }
-
-  detail.innerHTML = `
-    <p class="prompt-line">${message.prompt}</p>
-    <p>${message.transcript}</p>
-    ${renderResponseSection(message)}
-  `;
-
-  attachResponseListeners(message);
-}
-
-function renderResponseSection(message){
-  if (message.responseType === 'text') return renderTextResponse(message);
-  if (message.responseType === 'choice') return renderChoiceResponse(message);
-  return `<p class="pane-placeholder">Response type "${message.responseType}" — coming soon.</p>`;
-}
-
-function renderChoiceResponse(message){
-  const buttons = message.choices.map(choice => `
-    <button class="choice-btn ${choice === message.savedChoice ? 'selected' : ''}" data-choice="${choice}">
-      ${choice}
-    </button>
-  `).join('');
-
-  return `
-    <div class="choice-list">${buttons}</div>
-    ${message.savedChoice ? '<div class="saved-note">Saved locally — not yet connected to a backend.</div>' : ''}
-  `;
-}
-
-function renderTextResponse(message){
-  const saved = message.savedText;
-  return `
-    <textarea class="response-box" id="response-input" placeholder="Type a response...">${saved || ''}</textarea>
-    <button class="save-btn" id="save-response">Save response</button>
-    ${saved ? '<div class="saved-note">Saved locally — not yet connected to a backend.</div>' : ''}
-  `;
-}
-
-function attachResponseListeners(message){
-  if (message.responseType === 'text') {
-    const saveBtn = document.getElementById('save-response');
-    const input = document.getElementById('response-input');
-    saveBtn.addEventListener('click', () => {
-      const value = input.value.trim();
-      if (!value) return;
-      message.savedText = value;
-      renderMessageDetail();
-    });
-  }
-  if (message.responseType === 'choice') {
-    document.querySelectorAll('.choice-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        message.savedChoice = btn.dataset.choice;
-        renderMessageDetail();
-      });
-    });
-  }
-}
-
-document.getElementById('message-list').addEventListener('click', (event) => {
-  const row = event.target.closest('.message-row');
-  if (!row) return;
-  selectedMessageId = row.dataset.id;
-  renderMessageList();
-  renderMessageDetail();
-});
+// demo button: delivers whatever's still pending, for showing this without waiting
+// document.getElementById('notify-trigger').addEventListener('click', () => {
+//   const next = pendingQueue.find(m => !m.arrived);
+//   if (next) deliver(next);
+// });
+ 
+loadData();
 
 
 
-loadContent();
-loadGallery();
-loadMessages();
+

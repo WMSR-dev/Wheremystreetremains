@@ -7,70 +7,61 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <section class="screen active centered-screen" data-screen="intro">
-        <p data-i18n="intro.text">Introduction Here</p>
-        <button class="btn" id="intro-continue" data-i18n="intro.continue">
-          Continue
-        </button>
-      </section>
-
-      <section class="screen centered-screen" data-screen="lock">
-        <p>Login screen</p>
-        <button class="btn" id="unlock-btn" data-i18n="lock.enter">
-          Enter
-        </button>
-      </section>
-
-      <section class="screen centered-screen" data-screen="prompt">
-        <p data-i18n="prompt.heading">preliminary prompt</p>
-        <button class="btn" id="prompt-continue" data-i18n="prompt.continue">
-          Continue
-        </button>
-      </section>
-
-      <section class="screen" data-screen="os">
-        <div class="status-bar">
-          <div class="traffic-lights">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
-          </div>
-          <span data-i18n="os.label">archive</span>
-          <button id="notify-trigger" class="status-action">
-            Simulate arrival
-          </button>
-        </div>
-
-        <div class="app-frame">
-          <div class="app active" data-app="home">
-            <p>Home app placeholder</p>
-          </div>
-          <div class="app" data-app="gallery">
-            <div class="gallery-grid" id="gallery-grid"></div>
-          </div>
-          <div class="app" data-app="messages">
-            <div class="pane-layout">
-              <div class="pane-sidebar" id="message-list"></div>
-              <div class="pane-detail" id="message-detail">
-                <p class="pane-placeholder">Select a message to read it</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="notif-banner" id="notif-banner">
-  <div class="notif-from" id="notif-from"></div>
-  <div class="notif-snippet" id="notif-snippet"></div>
-</div>
-
-        <div class="dock">
-          <button class="active" data-app="home">Home</button>
-          <button data-app="gallery">Gallery</button>
-          <button data-app="messages">Messages</button>
-        </div>
-      </section>
+  <div class="device">
+  <div class="notch"></div>
+ 
+  <div class="status-bar">
+    <span id="status-time">9:41</span>
+    <span id="status-icons">●●●</span>
+  </div>
+ 
+  <div class="screen-content">
+ 
+    <div class="app active" data-app="messages" id="app-messages">
+      <div class="app-header">Messages</div>
+      <div class="message-list" id="message-list"></div>
+    </div>
+ 
+    <div class="app" data-app="home" id="app-home">
+      <div class="app-header">Home</div>
+      <p class="pane-placeholder">Coming later.</p>
     </div>
 
-    <script type="module" src="js/app.js"></script>
-  </body>
+     <div class="app" data-app="contacts" id="app-contacts">
+      <div class="app-header">Contacts</div>
+      <p class="pane-placeholder">Coming later.</p>
+    </div>
+ 
+    <div class="app" data-app="gallery" id="app-gallery">
+      <div class="app-header">Gallery</div>
+      <p class="pane-placeholder">Coming later.</p>
+    </div>
+ 
+    <div class="detail-overlay" id="message-detail"></div>
+ 
+    <div class="notif-banner" id="notif-banner">
+      <div class="notif-thumb" id="notif-thumb"></div>
+      <div>
+        <div class="notif-from" id="notif-from">—</div>
+        <div class="notif-snippet" id="notif-snippet">—</div>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <div class="dock">
+    <button data-app="home">Home</button>
+    <button data-app="gallery">Gallery</button>
+    <button data-app="contacts">Contacts</button>
+    <button data-app="messages" class="active">Messages<span class="unread-dot" id="dock-unread"></span></button>
+  </div>
+</div>
+ 
+<!-- demo-only: simulates a message "arriving" so you can see the notification flow.
+     remove this button for the real install — a real trigger (timer/proximity/etc) replaces it. -->
+<!-- <button id="notify-trigger" style="position:fixed; bottom:20px; left:20px; font-family:monospace;">+ simulate arrival</button> -->
+ 
+<script src="js/app.js"></script>
+</body>
 </html>
+
