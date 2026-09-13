@@ -1,0 +1,40 @@
+[
+  {
+    "id": "beach",
+    "name": "Beach",
+    "cover": "../assets/imgs/joud/1.jpg",
+    "photos": [
+      {
+        "id": "joud1",
+        "src": "../assets/imgs/joud/1.jpg",
+        "caption": {
+          "en": "Gaza City"
+        },
+        "date": "2025-06-12"
+      }
+    ]
+  },
+  {
+    "id": "work",
+    "name": "Work",
+    "cover": "../assets/imgs/nour_hayek/1.jpg",
+    "photos": [
+      {
+        "id": "nour_hayek1",
+        "src": "../assets/imgs/nour_hayek/1.jpg",
+        "caption": {
+          "en": "Family gathering"
+        },
+        "date": "2025-06-15"
+      },
+      {
+        "id": "nour_hayek3",
+        "src": "../assets/imgs/nour_hayek/3.jpg",
+        "caption": {
+          "en": "The beach"
+        },
+        "date": "2025-07-01"
+      }
+    ]
+  }
+]

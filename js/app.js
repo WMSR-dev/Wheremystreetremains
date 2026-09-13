@@ -26,18 +26,22 @@ let people = [];          // everyone who exists in the archive
 let messages = [];        // messages that have "arrived"
 let pendingQueue = [];    // messages waiting to arrive
 let openThreadId = null;  // which person's thread is open
- 
+let photoFolders = [];
+
 async function loadData(){
-  const [peopleRes, messagesRes] = await Promise.all([
+  const [peopleRes, messagesRes, photosRes] = await Promise.all([
     fetch('data/people.json'),
-    fetch('data/messages.json')
+    fetch('data/messages.json'),
+    fetch('data/photos.json')
   ]);
   people = await peopleRes.json();
+  photoFolders = await photosRes.json();
   const all = await messagesRes.json();
   messages = all.filter(m => m.arrived);
   pendingQueue = all.filter(m => !m.arrived);
   renderThreadList();
   renderContactsList();
+  renderPhotoFolders();
   startSequence();
 }
 
@@ -157,6 +161,126 @@ function openThread(personId){
   openThreadId = personId;
   renderThread();
   document.getElementById('message-detail').classList.add('show');
+}
+
+function renderPhotoFolders() {
+  const photoList = document.getElementById('photos-list');
+
+  photoList.innerHTML = photoFolders.map(folder => `
+    <div class="photo-folder" data-folder="${folder.id}">
+
+      <img
+        class="photo-folder-cover"
+        src="${folder.cover}"
+        alt=""
+      >
+
+      <div class="photo-folder-info">
+        <div class="photo-folder-name">
+          ${folder.name}
+        </div>
+
+        <div class="photo-folder-count">
+          ${folder.photos.length} photos
+        </div>
+      </div>
+
+    </div>
+  `).join('');
+
+  photoList.querySelectorAll('.photo-folder').forEach(folderElement => {
+    folderElement.addEventListener('click', () => {
+
+      const folder = photoFolders.find(
+        f => f.id === folderElement.dataset.folder
+      );
+
+      renderPhotoFolder(folder);
+    });
+  });
+}
+
+
+function renderPhotoFolder(folder) {
+  const photoList = document.getElementById('photos-list');
+
+  photoList.innerHTML = `
+    <div class="photo-folder-view">
+
+      <button class="photo-back" id="photo-folder-back">
+        ← Back
+      </button>
+
+      <h2 class="photo-folder-title">
+        ${t(folder.name)}
+      </h2>
+
+      <div class="photo-grid">
+        ${folder.photos.map(photo => `
+          <div
+            class="photo-item"
+            data-photo="${photo.id}"
+          >
+            <img
+              src="${photo.src}"
+              alt="${photo.caption ? t(photo.caption) : ''}"
+            >
+          </div>
+        `).join('')}
+      </div>
+
+    </div>
+  `;
+
+  document
+    .getElementById('photo-folder-back')
+    .addEventListener('click', renderPhotoFolders);
+
+
+  photoList.querySelectorAll('.photo-item').forEach(photoElement => {
+    photoElement.addEventListener('click', () => {
+
+      const photo = folder.photos.find(
+        p => p.id === photoElement.dataset.photo
+      );
+
+      renderPhoto(photo, folder);
+    });
+  });
+}
+
+
+function renderPhoto(photo, folder) {
+  const photoList = document.getElementById('photos-list');
+
+  photoList.innerHTML = `
+    <div class="photo-view">
+
+      <button class="photo-back" id="photo-back">
+        ← Back
+      </button>
+
+      <div class="photo-view-image">
+        <img
+          src="${photo.src}"
+          alt="${photo.caption ? t(photo.caption) : ''}"
+        >
+      </div>
+
+      ${photo.caption ? `
+        <div class="photo-caption">
+          ${t(photo.caption)}
+        </div>
+      ` : ''}
+
+    </div>
+  `;
+
+  document
+    .getElementById('photo-back')
+    .addEventListener('click', () => {
+      renderPhotoFolder(folder);
+    });
 }
  
 function renderThread(){

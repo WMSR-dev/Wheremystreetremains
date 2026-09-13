@@ -234,6 +234,138 @@ body{
 }
 
 
+#photos-list {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+
+/* =========================
+   Folders
+   ========================= */
+
+.photo-folder {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e5e5e5;
+  cursor: pointer;
+}
+
+.photo-folder:hover {
+  background: #f7f7f7;
+}
+
+.photo-folder-cover {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.photo-folder-info {
+  margin-left: 16px;
+}
+
+.photo-folder-name {
+  font-size: 17px;
+  font-weight: 500;
+  color: #222;
+}
+
+.photo-folder-count {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #888;
+}
+
+
+/* =========================
+   Folder Gallery
+   ========================= */
+
+.photo-folder-view {
+  width: 100%;
+  min-height: 100%;
+}
+
+.photo-back {
+  display: block;
+  border: none;
+  background: none;
+  color: #3478f6;
+  font-size: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.photo-folder-title {
+  margin: 4px 20px 16px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.photo-item {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  cursor: pointer;
+  background: #eee;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-item:hover img {
+  opacity: 0.9;
+}
+
+/* =========================
+   Individual Photo
+   ========================= */
+
+.photo-view {
+  width: 100%;
+  min-height: 100%;
+  background: #fff;
+}
+
+.photo-view-image {
+  width: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+}
+
+.photo-view-image img {
+  width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  display: block;
+}
+
+.photo-caption {
+  padding: 16px 20px 24px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #333;
+}
+
+
 .message-row{
   display:flex; align-items:center; gap:0.75rem;
   padding:0.625rem;
