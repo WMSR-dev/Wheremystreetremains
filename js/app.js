@@ -37,6 +37,7 @@ async function loadData(){
   messages = all.filter(m => m.arrived);
   pendingQueue = all.filter(m => !m.arrived);
   renderThreadList();
+  renderContactsList();
   startSequence();
 }
 
@@ -80,12 +81,76 @@ function renderThreadList(){
     `;
   }).join('');
 }
+
+function renderContactsList() {
+  const contactList = document.getElementById('contacts-list');
+  const contacts = people;
+
+  contactList.innerHTML = contacts.map(person => `
+    <div class="contact-row" data-person="${person.id}">
+      <img
+        class="contact-row-avatar"
+        src="${person.avatar}"
+        alt=""
+      >
+      <div class="contact-row-name">
+        ${t(person.name)}
+      </div>
+    </div>
+  `).join('');
+
+  contactList.querySelectorAll('.contact-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const person = contacts.find(p => p.id === row.dataset.person);
+      renderContactProfile(person);
+    });
+  });
+}
+
+
+function renderContactProfile(person) {
+  const list = document.getElementById('contacts-list');
+
+  list.innerHTML = `
+    <div class="contact-profile">
+
+      <button class="contact-back" id="contact-back">
+        ← Back
+      </button>
+
+      <div class="contact-profile-header">
+        <img
+          class="contact-profile-avatar"
+          src="${person.avatar}"
+          alt=""
+        >
+
+        <h2>${t(person.name)}</h2>
+      </div>
+
+      <div class="contact-profile-section">
+        <h3>Notes</h3>
+        <p class="contact-notes">
+          ${person.bio ? t(person.bio) : ''}
+        </p>
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById('contact-back').addEventListener('click', () => {
+    renderContactsList();
+  });
+}
  
 document.getElementById('message-list').addEventListener('click', (e) => {
   const row = e.target.closest('.message-row');
   if (!row) return;
   openThread(row.dataset.person);
 });
+
+
+
 
 //single contact msg view
 function openThread(personId){
