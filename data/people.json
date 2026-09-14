@@ -1,14 +1,17 @@
 [
   {
-    "id": "asem",
+    "id": "Asem",
     "name": {
-      "en": "Asem Al Jerjawi"
+      "en": "Asem"
     },
-    "avatar": "#",
+    "avatar": "https://api.dicebear.com/10.x/glass/svg?seed=Asem",
     "bio": {
-      "en": "Palestinian journalist from Gaza...."
-    }
+      "en": "A Palestinian journalist from Gaza and founder of the project 'Where Does My Street Remain.' He began collecting photographs and audio clips from inside Gaza during the war, before leaving the Strip for the first time in his life on 27 August 2025. He is currently studying in Ireland. His brother Hussein, 19 years old, remains in Gaza and draws streets on UNRWA flour sacks. Asem Al Jerjawi is a 24-year-old Palestinian freelance journalist from Gaza whose work is published in major international media outlets, including Al Jazeera English, Middle East Eye, and Mondoweiss. Asem provides firsthand coverage of life under siege, reporting on humanitarian issues such as malnutrition, disruption of education, healthcare crises, and accumulated psychological suffering. He also produced a zine titled 'Silence is Surrender,' featuring personal testimonies and artwork from people in Gaza. Beyond crisis coverage, Asem highlights cultural resilience and the role of art in preserving Palestinian identity. He holds a Bachelor's degree from the English Department of the Islamic University of Gaza and was recently accepted to University College Dublin to pursue a Master's degree in Journalism and International Affairs."
+    },
+    "pinned": true
   },
+  
+
   {
     "id": "maysa",
     "name": {

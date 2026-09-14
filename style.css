@@ -121,6 +121,7 @@ body{
 
 .contact-row:hover {
   background-color: #f7f7f7;
+  color:#111;
 }
 
 .contact-row:active {
@@ -209,6 +210,57 @@ body{
 }
 
 
+/* Action row (message / call / video / mail) */
+
+.contact-actions {
+  display: flex;
+  gap: 10px;
+  margin: 0 20px 20px;
+}
+
+.contact-action {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 0 10px;
+  border: none;
+  border-radius: 12px;
+  background: var(--surface-2);
+  color: #3478f6;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.contact-action svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.contact-action:hover {
+  opacity: 0.8;
+}
+
+.contact-action:active {
+  opacity: 0.6;
+}
+
+/* placeholder icons, there just to fill the row */
+.contact-action.is-dead {
+  color: var(--text-dim);
+  opacity: 0.45;
+  cursor: default;
+}
+
+.contact-action.is-dead:hover,
+.contact-action.is-dead:active {
+  opacity: 0.45;
+}
+
+
 /* Bio / notes section */
 
 .contact-profile-section {
@@ -230,7 +282,7 @@ body{
   margin: 0;
   font-size: 15px;
   line-height: 1.6;
-  color: #444;
+  color: #c1c0c0;
 }
 
 
@@ -400,6 +452,16 @@ body{
   font-size:0.77em; font-weight:700;
   border-radius:999px;
   padding:0.1em 0.5em; margin-left:0.5em;
+}
+
+/* pinned thread (the narrator) — small grey pushpin at the trailing edge, like WhatsApp */
+.pin{
+  width:0.875rem; height:0.875rem;
+  margin-left:auto;
+  flex-shrink:0;
+  align-self:center;
+  fill:var(--text-dim);
+  opacity:0.75;
 }
 
 

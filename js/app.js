@@ -52,8 +52,24 @@ function messagesFor(personId){ return messages.filter(m => m.personId === perso
 
 // appearing in the list only when a msg is received // diff between new msg for an introduced character and a new character
 
+// `messages` is in arrival order, so the index of a person's latest message
+// tells us how recently they last wrote
+function latestIndex(personId){
+  for (let i = messages.length - 1; i >= 0; i--){
+    if (messages[i].personId === personId) return i;
+  }
+  return -1;
+}
+
 function knownPeople(){
-  return people.filter(p => messagesFor(p.id).length > 0);
+  return people
+    .filter(p => messagesFor(p.id).length > 0)
+    .sort((a, b) =>
+      // pinned people (the narrator) stay at the top of the list
+      ((b.pinned ? 1 : 0) - (a.pinned ? 1 : 0)) ||
+      // otherwise most recent message first, like any messaging app
+      (latestIndex(b.id) - latestIndex(a.id))
+    );
 }
 
 //thread list
@@ -72,7 +88,7 @@ function renderThreadList(){
     const latest = thread[thread.length - 1];
     const count = thread.length;
     return `
-      <div class="message-row" data-person="${person.id}">
+      <div class="message-row${person.pinned ? ' pinned' : ''}" data-person="${person.id}">
         <img class="message-row-thumb" src="${person.avatar}" alt="">
         <div class="message-row-text">
           <div class="message-row-from">
@@ -81,6 +97,10 @@ function renderThreadList(){
           </div>
           <div class="message-row-snippet">${t(latest.transcript)}</div>
         </div>
+        ${person.pinned ? `
+        <svg class="pin" viewBox="0 0 24 24" aria-label="Pinned" role="img">
+          <path d="M16 3l5 5-1.5 1.5-.7-.7-3.6 3.6.3 3.2L14 17l-3.5-3.5L5 19l-1-1 5.5-5.5L6 9l1.4-1.5 3.2.3 3.6-3.6-.7-.7z"/>
+        </svg>` : ''}
       </div>
     `;
   }).join('');
@@ -132,6 +152,33 @@ function renderContactProfile(person) {
         <h2>${t(person.name)}</h2>
       </div>
 
+      <div class="contact-actions">
+        <button class="contact-action" id="contact-message">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3C6.5 3 2 6.6 2 11c0 2.3 1.2 4.4 3.2 5.9L4 21l4.6-2.2c1.1.3 2.2.5 3.4.5 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/>
+          </svg>
+          <span>message</span>
+        </button>
+        <button class="contact-action is-dead" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/>
+          </svg>
+          <span>call</span>
+        </button>
+        <button class="contact-action is-dead" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v2.5l4-2.5v10l-4-2.5V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+          </svg>
+          <span>video</span>
+        </button>
+        <button class="contact-action is-dead" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6zm2 0l7 5 7-5H5zm14 2.5l-7 5-7-5V18h14V8.5z"/>
+          </svg>
+          <span>mail</span>
+        </button>
+      </div>
+
       <div class="contact-profile-section">
         <h3>Notes</h3>
         <p class="contact-notes">
@@ -144,6 +191,13 @@ function renderContactProfile(person) {
 
   document.getElementById('contact-back').addEventListener('click', () => {
     renderContactsList();
+  });
+
+  // jump straight into this person's chat; the thread only ever shows
+  // messages that have already arrived, so unknown contacts open empty
+  document.getElementById('contact-message').addEventListener('click', () => {
+    showApp('messages');
+    openThread(person.id);
   });
 }
  
@@ -290,8 +344,9 @@ function renderThread(){
 
   const bubbles = messagesFor(person.id).map(m => `
     <div class="bubble" data-id="${m.id}">
-      <img class="bubble-photo" src="${m.image}" alt="">
+      ${m.image ? `<img class="bubble-photo" src="${m.image}" alt="">` : ''}
 
+      ${m.audio ? `
       <div class="voice-note">
         <button class="vn-play" data-audio="${m.id}" aria-label="Play voice note">
           <span class="vn-icon">&#9654;</span>
@@ -305,6 +360,9 @@ function renderThread(){
 
       <button class="transcript-toggle" data-toggle="${m.id}">transcript</button>
       <p class="bubble-transcript" hidden>${t(m.transcript)}</p>
+      ` : `
+      <p class="bubble-transcript">${t(m.transcript)}</p>
+      `}
 
       <span class="bubble-meta">${m.time || ''}</span>
     </div>
