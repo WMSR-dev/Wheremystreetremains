@@ -11,8 +11,8 @@
 <body>
 
   <section class="scene" id="scene-film">
-    <div class="frame" id="start" data-manual>
-            <button id="begin">Begin</button>
+    <div class="frame" id="start" data-manual >
+            <button data-next id="begin" >Begin</button>
     </div>
 
     <div class="frame" id="street">
@@ -28,14 +28,25 @@
 
     <div class="frame" id="remember" data-manual>
         <h2>How do you remember a city?</h2>
-        <button data-choice="places">Places</button>
-        <button data-choice="people">People</button>
+        <div class="choice-buttons">
+            <button data-choice="places">Places</button>
+            <button data-choice="people">People</button>
+        </div>
+        
     </div>
+     <nav class="film-nav">
+    <button data-back >←</button>
+    <div id="film-dots"></div>
+    <button data-next>→</button>
+  </nav>
   </section>
 
   <section class="scene" id="scene-desktop">
     <p>desktop goes here</p>
   </section>
+
+   
+
 
   <script type="module" src="js/main.js"></script>
 </body>

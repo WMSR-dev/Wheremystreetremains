@@ -8,8 +8,9 @@
 
 html, body{ 
     height: 100%; 
-    background: black; 
-    color:#eee;
+    background: #f9f9f9;
+    color: #111;
+
     font-family: system-ui, sans-serif;
  }
 
