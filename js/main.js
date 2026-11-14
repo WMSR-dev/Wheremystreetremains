@@ -1,5 +1,4 @@
 import {loadData} from './data.js';
-import {showScene} from './scenes.js';
 import { startFilm, choices} from './film.js';
 import {t} from './i18n.js'; 
 
@@ -8,6 +7,12 @@ console.log('data loaded', data);
 
 window.data = data; //to view data in the console
 window.choices= choices; 
+
+function showScene(name){
+    document.querySelectorAll('.scene').forEach(el => {
+        el.classList.toggle('active', el.id === `scene-${name}`); 
+    });
+}
 
 function goToDesktop(){
     showScene('desktop'); 
