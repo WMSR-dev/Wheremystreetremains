@@ -1,0 +1,24 @@
+
+
+*
+{ box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; }
+
+
+html, body{ 
+    height: 100%; 
+    background: black; 
+    color:#eee;
+    font-family: system-ui, sans-serif;
+ }
+
+.scene{ 
+    display: none; 
+    position: fixed;
+     inset: 0; 
+    }
+
+.scene.active{ 
+    display: block; 
+}

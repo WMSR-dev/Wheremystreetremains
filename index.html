@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Where My Street Remains</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/film.css">
+
+</head>
+<body>
+
+  <section class="scene" id="scene-film">
+    <div class="frame" id="start" data-manual>
+            <button id="begin">Begin</button>
+    </div>
+
+    <div class="frame" id="street">
+        <p class="caption">
+            This is Al-Nasr Street in Gaza, Palestine, where our story begins.
+        </p>
+    </div>
+
+    <div class="frame" id="map">
+        <!-- adding map here (shud we do img or load mapbox?) -->
+         <p class="caption">One of the cafes on Al Nasr street is Baba Roti</p>
+    </div>
+
+    <div class="frame" id="remember" data-manual>
+        <h2>How do you remember a city?</h2>
+        <button data-choice="places">Places</button>
+        <button data-choice="people">People</button>
+    </div>
+  </section>
+
+  <section class="scene" id="scene-desktop">
+    <p>desktop goes here</p>
+  </section>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
