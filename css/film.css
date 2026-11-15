@@ -22,34 +22,126 @@
 
 /* full screen for assets */
 .frame img, .frame video{
-    /*position: absolute;
+    position: absolute;
     top: 0;
-    left: 0;*/
+    left: 0;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
+
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.map-png{
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    height:80%;
+}
+
+.map-png path{
+    stroke: darkgreen;
+    stroke-width: 12px;
+    fill: none;
+    stroke-linecap:round;
+
+    stroke-dashoffset: 1;
+    stroke-dasharray: 1;
+}
+
+#asem-intro.active path{
+    animation: line-grow 5s ease-out forwards;
+}
+
+#asem-intro.active circle{
+    animation: show-pin 0.5s ease-out 5s both;
+}
+
+#asem-intro path{
+    /*stroke-dashoffset: 0;*/
+    opacity: 0.8;
+
+}
+
+#asem-intro.active image {
+    animation: dim 2s ease-out 1s both;
+}
+
+.video-placeholder{
+    position: absolute;
+    width: 35%;
+    aspect-ratio: 16/9;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+#asem-intro.active .video-placeholder{
+    animation: fade-in 2s ease-in 1s both;
+}
+
+
+
+@keyframes line-grow{
+    from{
+        stroke-dashoffset: 1;
+    }
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes show-pin{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in{
+    from{
+        opacity: 0;
+    }
+    to{
+       opacity: 1;
+    }
+}
+
+@keyframes dim{
+    from{
+        opacity: 1;
+    }
+
+    to{
+        opacity: 0.5;
+    }
+}
+
+
+.map-png circle{
+    fill:darkgreen;
 }
 
 .caption{
     position: absolute;
     left: 10%;
     right: 10%;
-    bottom: 10%;
+    bottom: 5%;
     text-align: center;
     font-size: 1.5rem;
     font-weight: 400;
-    color: #FFD90F;
+    color:black;
 }
 
 .film-nav {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 1.5rem;
+  bottom: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,8 +179,16 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 1rem;
+  border-radius: 3px;
+  font-size: 1.5rem;
 }
 
+#begin:hover{
+    cursor: pointer;
+}
 #remember.active{
   display: flex;
   flex-direction: column;
