@@ -1,25 +1,25 @@
 
 
 *
-{ box-sizing: border-box; 
-    margin: 0; 
+{ box-sizing: border-box;
+    margin: 0;
     padding: 0; }
 
 
-html, body{ 
-    height: 100%; 
+html, body{
+    height: 100%;
     background: #f9f9f9;
     color: #111;
 
-    font-family: system-ui, sans-serif;
+    font-family: Helvetica, system-ui, sans-serif;
  }
 
-.scene{ 
-    display: none; 
+.scene{
+    display: none;
     position: fixed;
-     inset: 0; 
+     inset: 0;
     }
 
-.scene.active{ 
-    display: block; 
+.scene.active{
+    display: block;
 }
