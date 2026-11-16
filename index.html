@@ -16,7 +16,7 @@
             <button data-next id="begin" >Begin</button>
     </div>
 
-    <div class="frame" id="street">
+    <div class="frame" id="street" data-duration="5">
         <!--<video id="alNasrVid" loop preload>
             <source src="assets/video/street-dolly2.mp4" type="video/mp4"/>
         </video>-->
@@ -40,11 +40,11 @@
         <p class="caption">One of the cafes on Al Nasr street is Baba Roti</p>
     </div>-->
 
-    <div class="frame" id="asem-intro">
+    <div class="frame" id="asem-intro" data-duration="10">
         <svg viewBox="640 0 1920 1818" preserveAspectRatio="xMidYMid slice" class="map-png">
             <image href="assets/imgs/film/urban-export_illustrationTop.png" width="3200" height="1818" alt=""/>
-            <path d="M 2100 380  L 1272 1277" pathLength="1"/>
-            <circle cx="1272" cy="1277" r="15"/>
+            <path d="M 2100 380  L 773 1818" pathLength="1"/>
+            <!--<circle cx="1272" cy="1277" r="15"/>-->
         </svg>
         <div class="video-placeholder">
             <!--<video src=""></video>-->
@@ -54,13 +54,67 @@
         <p class="caption">[Asem Intro]</p>
     </div>
 
-    <div class="frame" id="map-2">
-        <svg viewBox="1000 600 1200 750" preserveAspectRatio="xMidYMid slice" class="map-png">
+    <div class="frame" id="map-2" data-duration="15">
+        <svg viewBox="1012 555 1200 750" preserveAspectRatio="xMidYMid slice" class="map-png">
             <image href="assets/imgs/film/urban-export_illustrationAngled.png" width="3200" height="1818" alt=""/>
             <path d="M 1590 650  L 1612 930" pathLength="1"/>
-            <rect x="1592" y="910" width="40" height="40">
+            <rect x="1592" y="910" width="40" height="40"/>
         </svg>
+        <div class="place-window">
+
+            <img class="place-illustration" src="assets/imgs/film/babaroti-placeholder.png" alt="">
+        </div>
         <p class="caption">One of the cafes on Al Nasr street is Baba Roti, a place Asem came to know very well during the war, in search of a better internet connection and community.</p>
+    </div>
+
+    <!-- placeholder frames, caption only for now -->
+
+    <div class="frame" id="network-1" data-duration="5">
+        <p class="caption">At Baba Roti, Asem met x, and then x introduced him to y, and soon after, the group included z and abc too. Next to a towering tree, cascading with colorful handwritten notes, a sense of community emerged, as the same faces returned to this cafe over and over.</p>
+    </div>
+
+    <div class="frame" id="network-2" data-duration="5">
+        <p class="caption">A sense of familiarity, of knowing people’s faces and names, of knowing the neighborhoods and the streets, is common in a place as small and connected as Gaza.</p>
+    </div>
+
+    <div class="frame" id="article" data-duration="5">
+        <p class="caption">In 20xx, Asem had an idea to write an article about watching the streets of Gaza every day. Since 2023, we’ve seen 70-80% of these streets become completely defaced and destroyed.</p>
+    </div>
+
+    <div class="frame" id="asem-loss" data-duration="5">
+        <p class="caption">As we all know, the human loss and urban devastation in Gaza have reached an unimaginable scale. [interview footage]</p>
+    </div>
+
+    <div class="frame" id="drone-1" data-duration="5">
+        <p class="caption">Think of a city you hold dear: an apartment you moved away from,</p>
+    </div>
+
+    <div class="frame" id="drone-2" data-duration="5">
+        <p class="caption">a restaurant you loved that has since shut down,</p>
+    </div>
+
+    <div class="frame" id="drone-3" data-duration="5">
+        <p class="caption">A city you haven’t been able to return to in a long time…</p>
+    </div>
+
+    <div class="frame" id="collage-1" data-duration="5">
+        <p class="caption">Think of an apartment you moved away from</p>
+    </div>
+
+    <div class="frame" id="collage-2" data-duration="5">
+        <p class="caption">a restaurant you loved that has since shut down,</p>
+    </div>
+
+    <div class="frame" id="collage-3" data-duration="5">
+        <p class="caption">A city you haven’t been able to return to in a long time[…]</p>
+    </div>
+
+    <div class="frame" id="network-3" data-duration="5">
+        <p class="caption">For Asem, the effort to hold on to these memories, for himself, his friends, and his community, started with photos and voice notes of everyday life in the city.</p>
+    </div>
+
+    <div class="frame" id="network-4" data-duration="5">
+        <p class="caption">By reaching out to family, like his brother Hussein, and friends, like x, y, or z, an archive of everyday memories began to evolve from a community that once sat in the same room day after day at Baba Roti.</p>
     </div>
 
     <div class="frame" id="remember" data-manual>
@@ -70,6 +124,10 @@
             <button data-choice="people">People</button>
         </div>
 
+    </div>
+
+    <div class="frame" id="handoff">
+        <p class="caption">On your device, you receive the same digital fragments…</p>
     </div>
 
      <nav class="film-nav">
@@ -137,7 +195,7 @@
 
         <div id="messenger-window" class="messenger-window">
 
-            
+
             <div class="messenger-titlebar" id="messenger-drag">
 
                 <div class="window-title">

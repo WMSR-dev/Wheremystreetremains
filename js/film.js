@@ -8,18 +8,19 @@ const backButton = scene.querySelector('.film-nav [data-back]');
 const nextButton = scene.querySelector('.film-nav [data-next]');
 
 
+let timer = null;
 
 let current = 0;
 //furthest frame reached;
-let furthest = 0; 
-let whenDone = null; 
+let furthest = 0;
+let whenDone = null;
 export const choices = {}; //to save places or ppl
 
 
 export function startFilm(onFinish){
     whenDone = onFinish;
 
-    buildDots(); 
+    buildDots();
 
     scene.addEventListener('click', handleClick);
     document.addEventListener('keydown', handleKey);
@@ -31,14 +32,14 @@ function buildDots(){
     for(let i=0; i<frames.length; i++){
         const dot=document.createElement('button');
         dot.className = 'dot';
-        dot.dataset.dot = i;                       
+        dot.dataset.dot = i;
         dotsContainer.appendChild(dot);
     }
 }
 
 function updateNav(){
     const dots = dotsContainer.querySelectorAll('.dot');
-    
+
     for (let i=0; i<dots.length; i++){
         if (i===current){
             dots[i].classList.add('current');
@@ -57,18 +58,18 @@ function updateNav(){
         backButton.disabled = true;
 
     } else{
-        backButton.disabled = false; 
+        backButton.disabled = false;
     }
 
     const isManual = frames[current].hasAttribute('data-manual');
     if(isManual){
         nextButton.hidden = true;
     } else{
-        nextButton.hidden = false; 
+        nextButton.hidden = false;
     }
 }
 
-function showFrame(index){
+function showFrame(index) {
     frames[current].classList.remove('active');
 
     current=index;
@@ -84,12 +85,18 @@ function showFrame(index){
 
         for(const item of media){
             if(i===current){
-                item.currentTime = 0; 
-                item.play(); 
+                item.currentTime = 0;
+                item.play();
             } else{
                 item.pause();
             }
         }
+    }
+
+    clearTimeout(timer);
+  if (frames[current].hasAttribute('data-duration')) {
+    const seconds = Number(frames[current].dataset.duration);
+    timer = setTimeout(next, seconds * 1000);
     }
     updateNav();
 }
@@ -107,19 +114,19 @@ export function next(){
 
 export function back(){
     if (current > 0){
-        showFrame(current-1); 
+        showFrame(current-1);
     }
 }
 
 
 function handleClick(event){
-    const clicked = event.target; 
+    const clicked = event.target;
 
     //detecting nexts
     const nextButton = clicked.closest('[data-next]');
     if(nextButton){
         next();
-        return; 
+        return;
     }
 
     const backTarget = clicked.closest('[data-back]');
@@ -164,6 +171,7 @@ function handleKey(event) {
 
 
 function finish() {
+  clearTimeout(timer);
   scene.removeEventListener('click', handleClick);
   document.removeEventListener('keydown', handleKey);
 
