@@ -130,6 +130,57 @@
     animation: loadingFade 1.2s ease-in-out infinite alternate;
 }
 
+.network{
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    height:100%;
+}
+
+.network circle{
+    fill:  darkred;
+}
+
+.network path{
+    stroke:#000;
+    stroke-width: 3px;
+    fill: none;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+/*network animation*/
+/*from big circle to asem circle*/
+#network-1.active .place{
+    animation: show-pin 1.5s ease-out both;
+}
+
+#network-1.active .l1{
+    animation: line-grow 2s ease-out 1.5s forwards;
+}
+
+#network-1.active .p1{
+    animation: show-pin 1s ease-out 3.5s both;
+}
+
+/*line and pin to x*/
+
+#network-1.active .l2{
+    animation: line-grow 2s ease-out 4.5s forwards;
+}
+#network-1.active .p2{
+    animation: show-pin 1s ease-out 6.5s both;
+}
+
+/*line and pin to y*/
+#network-1.active .l3{
+    animation: line-grow 2s ease-out 7.5s forwards;
+}
+#network-1.active .p3{
+    animation: show-pin 1s ease-out 9.5s both;
+}
+
 
 @keyframes line-grow{
     from{
