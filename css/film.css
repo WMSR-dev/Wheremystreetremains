@@ -119,6 +119,17 @@
 }
 
 
+#scene-loading.active{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-text{
+    color: black;
+    animation: loadingFade 1.2s ease-in-out infinite alternate;
+}
+
 
 @keyframes line-grow{
     from{
@@ -173,6 +184,14 @@
             transform: translate(-50%, -50%) scale(1);
             opacity: 1; }
 
+}
+
+@keyframes loadingFade{
+    from{
+        opacity: 0.3;
+    } to{
+        opacity: 1;
+    }
 }
 
 .map-png circle{
