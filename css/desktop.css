@@ -1,0 +1,959 @@
+#desktop {
+
+	background-image: url("../assets/imgs/desktop/windows-bg.jpg");
+	height: 100vh;
+	width: 100vw;
+
+
+/*background-size: contain;*/
+background-position: center center;
+background-repeat: no-repeat;
+
+background-size: 100% 100%;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+.desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+/* =========================
+   MESSENGER WINDOW
+========================= */
+
+.messenger-window {
+    position: absolute;
+
+    width: 760px;
+    height: 510px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+
+    background: #f7f7f7;
+
+    border: 1px solid #999;
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 12px 40px rgba(0,0,0,0.3);
+
+    z-index: 10;
+
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   TITLE BAR
+========================= */
+
+.messenger-titlebar {
+    height: 36px;
+    min-height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 10px;
+
+    background: #e9e9e9;
+    border-bottom: 1px solid #ccc;
+
+    cursor: grab;
+    user-select: none;
+}
+
+.messenger-titlebar:active {
+    cursor: grabbing;
+}
+
+.window-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    font-size: 12px;
+    color: #333;
+}
+
+.window-icon {
+    color: #4b91d1;
+}
+
+.window-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.window-controls button {
+    width: 23px;
+    height: 22px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    color: #333;
+    font-size: 16px;
+}
+
+.window-controls button:hover {
+    background: #d4d4d4;
+}
+
+.window-controls .window-close:hover {
+    background: #d9534f;
+    color: white;
+}
+
+
+/* =========================
+   WINDOW CONTENT
+========================= */
+
+.messenger-body {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+}
+
+
+/* =========================
+   CONTACTS
+========================= */
+
+.contacts-panel {
+    width: 230px;
+    min-width: 230px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #f0f0f0;
+
+    border-right: 1px solid #ccc;
+}
+
+.contacts-header {
+    padding: 14px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.contacts-header h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.contact-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px;
+
+    border-bottom: 1px solid #e3e3e3;
+
+    cursor: pointer;
+
+    transition: background 0.15s;
+}
+
+.contact:hover {
+    background: #e5e5e5;
+}
+
+.contact.active {
+    background: #d9e8f5;
+}
+
+.contact-avatar {
+    width: 36px;
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #c5c5c5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 13px;
+    color: #444;
+}
+
+.contact-info {
+    min-width: 0;
+}
+
+.contact-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222;
+}
+
+.contact-preview {
+    font-size: 11px;
+    color: #888;
+
+    margin-top: 4px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================
+   CONVERSATION
+========================= */
+
+.conversation-panel {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #fff;
+}
+
+.conversation-header {
+    height: 48px;
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    border-bottom: 1px solid #ddd;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.message-list {
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: auto;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.empty-state {
+    margin: auto;
+
+    color: #aaa;
+    font-size: 13px;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    max-width: 85%;
+}
+
+.message-bubble {
+    padding: 10px 13px;
+
+    background: #eeeeee;
+
+    border-radius: 12px;
+
+    font-size: 13px;
+    line-height: 1.5;
+
+    color: #222;
+
+    white-space: pre-wrap;
+}
+
+.message-time {
+    margin-top: 5px;
+
+    font-size: 10px;
+    color: #999;
+}
+
+.message-image {
+    max-width: 260px;
+    max-height: 220px;
+
+    object-fit: contain;
+
+    display: block;
+
+    margin-top: 8px;
+
+    border-radius: 5px;
+}
+
+.message-audio {
+    width: 250px;
+    max-width: 100%;
+
+    margin-top: 8px;
+}
+
+.conversation-footer {
+    height: 35px;
+    min-height: 35px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 15px;
+
+    background: #f5f5f5;
+
+    border-top: 1px solid #ddd;
+
+    font-size: 11px;
+    color: #999;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 800px) {
+
+    .messenger-window {
+        width: 95%;
+        height: 85%;
+    }
+
+    .contacts-panel {
+        width: 150px;
+        min-width: 150px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .contacts-panel {
+        width: 115px;
+        min-width: 115px;
+    }
+
+    .contact {
+        padding: 8px;
+    }
+
+    .contact-avatar {
+        width: 28px;
+        height: 28px;
+    }
+
+    .message-list {
+        padding: 12px;
+    }
+
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+.desktop {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+/* =========================
+   DESKTOP ICONS
+========================= */
+
+.desktop-icons {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.desktop-icon {
+    position: absolute;
+
+    width: 85px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 4px;
+
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    cursor: grab;
+    user-select: none;
+
+    pointer-events: auto;
+    touch-action: none;
+}
+
+.desktop-icon:active {
+    cursor: grabbing;
+}
+
+.desktop-icons:hover {
+	cursor: pointer ;
+}
+.desktop-icon.selected {
+/*    background: rgba(100, 150, 220, 0.35);*/
+    border-radius: 5px;
+}
+
+.desktop-icon-image {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 35px;
+
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.3));
+}
+
+.desktop-icon span {
+    padding: 2px 5px;
+
+    text-shadow: 1px 1px 3px black;
+}
+
+
+/* =========================
+   GENERIC APP WINDOWS
+========================= */
+
+.app-window {
+    position: absolute;
+
+    width: 500px;
+    height: 350px;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: none;
+    flex-direction: column;
+
+    background: #f7f7f7;
+
+    border: 1px solid #999;
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+
+    z-index: 10;
+}
+
+.app-window.open {
+    display: flex;
+}
+
+.app-titlebar {
+    height: 36px;
+    min-height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 12px;
+
+    background: #e9e9e9;
+    border-bottom: 1px solid #ccc;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    cursor: grab;
+    user-select: none;
+}
+
+.app-titlebar:active {
+    cursor: grabbing;
+}
+
+.app-close {
+    border: none;
+    background: transparent;
+
+    font-size: 19px;
+    cursor: pointer;
+}
+
+.app-close:hover {
+    background: #d9534f;
+    color: white;
+}
+
+.app-content {
+    flex: 1;
+    min-height: 0;
+    padding: 15px;
+    overflow: auto;
+}
+
+#notes-window textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: 14px/1.6 Arial, sans-serif;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .app-window {
+        width: 90%;
+        height: 70%;
+    }
+
+}
+
+
+
+/* =========================
+   GALLERY WINDOW
+========================= */
+
+.gallery-window {
+    width: 720px;
+    height: 500px;
+    background: #f7f7f7;
+    display: none;
+}
+
+.gallery-toolbar {
+    height: 42px;
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 0 14px;
+
+    background: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+}
+
+.gallery-toolbar button {
+    border: 1px solid #ccc;
+    background: white;
+    padding: 5px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.gallery-toolbar button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+
+/*.gallery-content {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    background: #fff;
+}
+*/
+
+/*.gallery-content {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}*/
+.gallery-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.gallery-folders,
+.gallery-photos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+
+/*.gallery-folders {
+    display: grid;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-photos {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+*/
+.gallery-viewer {
+    display: none;
+}
+
+.gallery-viewer.active {
+    display: flex;
+}
+
+/* =========================
+   FOLDERS
+========================= */
+
+.gallery-folders {
+    width: 100%;
+    height: 100%;
+
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+    align-content: start;
+    gap: 22px;
+
+    overflow-y: auto;
+}
+
+.gallery-folder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 8px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.gallery-folder:hover {
+    background: #edf3f9;
+}
+
+.gallery-folder-cover {
+    width: 105px;
+    height: 85px;
+
+    object-fit: cover;
+
+    border-radius: 4px;
+
+    background: #eee;
+}
+
+.gallery-folder-name {
+    margin-top: 9px;
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+
+    color: #333;
+    text-align: center;
+}
+
+
+/* =========================
+   PHOTOS GRID
+========================= */
+
+.gallery-photos {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 18px;
+
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+
+    align-content: start;
+    gap: 15px;
+
+    overflow-y: auto;
+}
+
+.gallery-photo {
+    cursor: pointer;
+    min-width: 0;
+}
+
+.gallery-photo img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    border-radius: 3px;
+
+    display: block;
+
+    background: #eee;
+}
+
+.gallery-photo:hover img {
+    outline: 3px solid #9bb9d5;
+}
+
+.gallery-photo-caption {
+    margin-top: 6px;
+
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+
+    color: #555;
+
+    text-align: center;
+}
+
+
+/* =========================
+   PHOTO VIEWER
+========================= */
+
+.gallery-viewer {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(20, 20, 20, 0.96);
+
+    z-index: 5;
+}
+
+.gallery-viewer.active {
+    display: flex;
+}
+
+.gallery-viewer-image-container {
+    width: 80%;
+    height: 90%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+}
+
+#gallery-large-image {
+    max-width: 100%;
+    max-height: calc(100% - 65px);
+
+    object-fit: contain;
+}
+
+.gallery-photo-info {
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#gallery-caption {
+    font-size: 13px;
+}
+
+#gallery-date {
+    margin-top: 5px;
+
+    font-size: 11px;
+    color: #aaa;
+}
+
+#gallery-viewer-close {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    border: none;
+    background: transparent;
+
+    color: white;
+    font-size: 27px;
+
+    cursor: pointer;
+}
+
+.gallery-nav {
+    border: none;
+    background: transparent;
+
+    color: white;
+    font-size: 45px;
+
+    cursor: pointer;
+
+    padding: 10px;
+}
+
+.gallery-nav:hover,
+#gallery-viewer-close:hover {
+    color: #aaa;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.gallery-empty {
+    grid-column: 1 / -1;
+
+    padding: 30px;
+
+    color: #999;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+
+    .gallery-window {
+        width: 94%;
+        height: 75%;
+    }
+
+    .gallery-folders,
+    .gallery-photos {
+        grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .gallery-folder-cover {
+        width: 85px;
+        height: 70px;
+    }
+
+}
+
+
+
+
+.desktop-statusbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    background: rgba(245, 245, 245, 0.82);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #333;
+
+    z-index: 1000;
+}
+
+.statusbar-right {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
