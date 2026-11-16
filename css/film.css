@@ -181,6 +181,30 @@
     animation: show-pin 1s ease-out 9.5s both;
 }
 
+#network-2 .network path{
+    stroke-dashoffset: 0;
+}
+
+/* photos around the network appear one by one, 1s apart */
+#network-2.active .ph1{
+    animation: show-pin 1s ease-out 0.5s both;
+}
+
+#network-2.active .ph2{
+    animation: show-pin 1s ease-out 1.5s both;
+}
+
+#network-2.active .ph3{
+    animation: show-pin 1s ease-out 2.5s both;
+}
+
+#network-2.active .ph4{
+    animation: show-pin 1s ease-out 3.5s both;
+}
+
+#network-2.active .ph5{
+    animation: show-pin 1s ease-out 4.5s both;
+}
 
 @keyframes line-grow{
     from{
